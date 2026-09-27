@@ -29,7 +29,7 @@ export function FilterBar({
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search tasks by title or description"
-          className="pl-9"
+          className="rounded-full pl-9 shadow-card"
           aria-label="Search tasks"
         />
       </div>
@@ -37,6 +37,7 @@ export function FilterBar({
         <Select
           value={priority}
           onChange={(e) => onPriorityChange(e.target.value)}
+          className="rounded-full shadow-card"
           aria-label="Filter by priority"
         >
           <option value="">All priorities</option>

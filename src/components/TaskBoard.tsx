@@ -76,7 +76,7 @@ export function TaskBoard() {
   }
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen">
       <Header onNewTask={() => setFormTask("new")} />
 
       <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6">

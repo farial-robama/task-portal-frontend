@@ -1,14 +1,39 @@
 "use client";
 
+import { CheckCircle2, Clock, MoreVertical, PlayCircle } from "lucide-react";
 import { Skeleton } from "./ui/Skeleton";
 import { TaskCard } from "./TaskCard";
 import { EmptyState } from "./EmptyState";
 import { Task, Status } from "@/lib/types";
 
-const COLUMN_META: Record<Status, { accent: string; label: string }> = {
-  Pending: { accent: "bg-status-pending", label: "Pending" },
-  "In Progress": { accent: "bg-status-progress", label: "In Progress" },
-  Completed: { accent: "bg-status-completed", label: "Completed" },
+const COLUMN_META: Record<
+  Status,
+  { label: string; icon: typeof Clock; iconBg: string; banner: string }
+> = {
+  Pending: {
+    label: "Pending",
+    icon: Clock,
+    iconBg: "bg-status-pending text-white",
+    banner: "bg-status-pending-soft",
+  },
+  "In Progress": {
+    label: "In Progress",
+    icon: PlayCircle,
+    iconBg: "bg-status-progress text-white",
+    banner: "bg-status-progress-soft",
+  },
+  Completed: {
+    label: "Completed",
+    icon: CheckCircle2,
+    iconBg: "bg-status-completed text-white",
+    banner: "bg-status-completed-soft",
+  },
+};
+
+const EMPTY_TONE: Record<Status, "pending" | "progress" | "completed"> = {
+  Pending: "pending",
+  "In Progress": "progress",
+  Completed: "completed",
 };
 
 interface TaskColumnProps {
@@ -31,16 +56,34 @@ export function TaskColumn({
   onStatusChange,
 }: TaskColumnProps) {
   const meta = COLUMN_META[status];
+  const Icon = meta.icon;
 
   return (
-    <section className={className} aria-label={`${status} tasks`}>
-      <div className="flex items-center gap-2 pb-3">
-        <span className={`h-2 w-2 rounded-full ${meta.accent}`} aria-hidden="true" />
-        <h2 className="text-sm font-semibold text-ink">{meta.label}</h2>
-        <span className="text-xs text-ink-muted">{tasks.length}</span>
+    <section
+      className={`overflow-hidden rounded-lg border border-border bg-surface shadow-card ${className ?? ""}`}
+      aria-label={`${status} tasks`}
+    >
+      <div className={`flex items-center justify-between gap-2 px-4 py-3 ${meta.banner}`}>
+        <div className="flex items-center gap-2.5">
+          <span className={`flex h-8 w-8 items-center justify-center rounded-full ${meta.iconBg}`}>
+            <Icon size={16} />
+          </span>
+          <h2 className="text-sm font-semibold text-ink">{meta.label}</h2>
+          <span className="rounded-full bg-surface/70 px-2 py-0.5 text-xs font-medium text-ink-muted">
+            {tasks.length}
+          </span>
+        </div>
+       
+        <button
+          type="button"
+          aria-label={`${meta.label} column options`}
+          className="rounded p-1 text-ink-muted/70 hover:bg-surface/70 hover:text-ink"
+        >
+          <MoreVertical size={16} />
+        </button>
       </div>
 
-      <div className="column-scroll flex flex-col gap-2.5 overflow-y-auto sm:max-h-[calc(100vh-260px)]">
+      <div className="column-scroll flex flex-col gap-2.5 overflow-y-auto p-3 sm:max-h-[calc(100vh-300px)]">
         {isLoading &&
           Array.from({ length: 3 }).map((_, i) => (
             <Skeleton key={i} className="h-24 w-full" />
@@ -48,6 +91,8 @@ export function TaskColumn({
 
         {!isLoading && tasks.length === 0 && (
           <EmptyState
+            icon={Icon}
+            tone={EMPTY_TONE[status]}
             title={`No ${meta.label.toLowerCase()} tasks`}
             description={
               status === "Pending"

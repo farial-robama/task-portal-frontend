@@ -1,35 +1,40 @@
 import type { Config } from "tailwindcss";
 
+function withOpacity(variable: string) {
+  return `rgb(var(${variable}) / <alpha-value>)`;
+}
+
 const config: Config = {
+  darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        bg: "#F3F4F7",
-        surface: "#FFFFFF",
-        ink: "#14171F",
-        "ink-muted": "#5B6270",
-        border: "#E1E3E9",
+        bg: withOpacity("--color-bg"),
+        surface: withOpacity("--color-surface"),
+        ink: withOpacity("--color-ink"),
+        "ink-muted": withOpacity("--color-ink-muted"),
+        border: withOpacity("--color-border"),
         accent: {
-          DEFAULT: "#245A52",
-          soft: "#E3EEEB",
-          hover: "#1B4740",
+          DEFAULT: withOpacity("--color-accent"),
+          soft: withOpacity("--color-accent-soft"),
+          hover: withOpacity("--color-accent-hover"),
         },
         priority: {
-          high: "#B3402A",
-          "high-soft": "#F7E7E3",
-          medium: "#B8790A",
-          "medium-soft": "#F7EEDC",
-          low: "#3E7A48",
-          "low-soft": "#E5F0E6",
+          high: withOpacity("--color-priority-high"),
+          "high-soft": withOpacity("--color-priority-high-soft"),
+          medium: withOpacity("--color-priority-medium"),
+          "medium-soft": withOpacity("--color-priority-medium-soft"),
+          low: withOpacity("--color-priority-low"),
+          "low-soft": withOpacity("--color-priority-low-soft"),
         },
         status: {
-          pending: "#5B6270",
-          "pending-soft": "#E9EAEE",
-          progress: "#245A52",
-          "progress-soft": "#E3EEEB",
-          completed: "#3E7A48",
-          "completed-soft": "#E5F0E6",
+          pending: withOpacity("--color-status-pending"),
+          "pending-soft": withOpacity("--color-status-pending-soft"),
+          progress: withOpacity("--color-status-progress"),
+          "progress-soft": withOpacity("--color-status-progress-soft"),
+          completed: withOpacity("--color-status-completed"),
+          "completed-soft": withOpacity("--color-status-completed-soft"),
         },
       },
       fontFamily: {

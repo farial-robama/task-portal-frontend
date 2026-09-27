@@ -33,13 +33,11 @@ export function useTasks() {
     } finally {
       setIsLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    const timeout = setTimeout(() => load(filters), 250); // debounce search
+    const timeout = setTimeout(() => load(filters), 250); 
     return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.search, filters.priority]);
 
   const createTask = useCallback(async (values: TaskFormValues) => {
@@ -55,14 +53,13 @@ export function useTasks() {
   }, []);
 
   const updateStatus = useCallback(async (id: number, status: Task["status"]) => {
-    // optimistic update so drag/drop-style status changes feel instant
     setTasks((prev) =>
       prev.map((t) => (t.id === id ? { ...t, status } : t))
     );
     try {
       await api.updateTaskStatus(id, status);
     } catch (err) {
-      await load(filters); // roll back by re-fetching on failure
+      await load(filters); 
       throw err;
     }
   }, [filters, load]);
@@ -73,7 +70,7 @@ export function useTasks() {
     try {
       await api.deleteTask(id);
     } catch (err) {
-      setTasks(prev); // roll back
+      setTasks(prev); 
       throw err;
     }
   }, [tasks]);
