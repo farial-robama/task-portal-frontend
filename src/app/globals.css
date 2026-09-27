@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F3F4F7;
+  color: #14171F;
+}
+
+/* Visible keyboard focus everywhere, instead of the browser default outline
+   being suppressed by component styling. */
+:focus-visible {
+  outline: 2px solid #245A52;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scrollbar for the Kanban columns — subtle, not default chunky grey */
+.column-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.column-scroll::-webkit-scrollbar-thumb {
+  background-color: #D3D6DD;
+  border-radius: 999px;
+}
