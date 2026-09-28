@@ -1,10 +1,8 @@
-// Generates the PWA icons as PNG files (no dependencies).
-// Usage: node scripts/generate-icons.mjs
 import { deflateSync } from "node:zlib";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const BG = [36, 90, 82]; // accent green
+const BG = [36, 90, 82]; 
 const WHITE = [255, 255, 255];
 
 // --- tiny PNG encoder -------------------------------------------------
@@ -35,8 +33,8 @@ function encodePng(size, rgb) {
   const ihdr = Buffer.alloc(13);
   ihdr.writeUInt32BE(size, 0);
   ihdr.writeUInt32BE(size, 4);
-  ihdr[8] = 8; // bit depth
-  ihdr[9] = 2; // RGB
+  ihdr[8] = 8; 
+  ihdr[9] = 2; 
   return Buffer.concat([
     Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
     chunk("IHDR", ihdr),
@@ -58,7 +56,6 @@ function distToSegment(px, py, ax, ay, bx, by) {
   return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
 }
 function colorAt(x, y) {
-  // check mark (green, on the white clipboard)
   const w = 0.03;
   if (
     distToSegment(x, y, 0.39, 0.55, 0.47, 0.63) <= w ||
@@ -73,7 +70,7 @@ function colorAt(x, y) {
 }
 
 function render(size) {
-  const ss = 3; // supersampling for smooth edges
+  const ss = 3; 
   const out = Buffer.alloc(size * size * 3);
   for (let py = 0; py < size; py++) {
     for (let px = 0; px < size; px++) {

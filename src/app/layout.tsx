@@ -30,8 +30,7 @@ export const viewport: Viewport = {
   themeColor: "#245A52",
 };
 
-// Runs before React hydrates so the correct theme class is on <html>
-// before first paint — avoids a light-mode flash for dark-mode users.
+
 const themeInitScript = `
 (function () {
   try {
