@@ -59,12 +59,12 @@ A responsive project and task management portal. Create, edit, delete and move t
 ### Prerequisites
 
 - Node.js 18 or newer and npm
-- The backend API running. Follow the setup steps in the backend repository first: https://github.com/YOUR-USERNAME/task-portal-backend
+- The backend API running. Follow the setup steps in the backend repository first: https://github.com/farial-robama/task-portal-backend
 
 ### Run locally
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/task-portal-frontend.git
+git clone https://github.com/farial-robama/task-portal-frontend.git
 cd task-portal-frontend
 cp .env.example .env.local
 npm install
