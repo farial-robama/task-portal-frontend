@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/ToastProvider";
 import { DecorativeBackground } from "@/components/DecorativeBackground";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,8 +21,17 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Taskboard — Project & Task Management",
   description: "A small-team portal for tracking project tasks end to end.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: { capable: true, title: "Taskboard", statusBarStyle: "default" },
+  icons: { apple: "/icons/icon-192.png" },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#245A52",
+};
+
+// Runs before React hydrates so the correct theme class is on <html>
+// before first paint — avoids a light-mode flash for dark-mode users.
 const themeInitScript = `
 (function () {
   try {
@@ -48,6 +58,7 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased bg-bg`}
       >
         <ToastProvider>
+          <ServiceWorkerRegister />
           <DecorativeBackground />
           <div className="relative z-10">{children}</div>
         </ToastProvider>
