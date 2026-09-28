@@ -3,7 +3,7 @@
 A responsive project and task management portal. Create, edit, delete and move tasks across a Pending, In Progress and Completed board. Built with Next.js, TypeScript and Tailwind CSS, and installable as a PWA.
 
 - **Live app:** https://task-portal-frontend-tau.vercel.app
-- **Backend repository:** https://github.com/YOUR-USERNAME/task-portal-backend
+- **Backend repository:** https://github.com/farial-robama/task-portal-backend
 - **Live API:** https://task-portal-backend-aarf.onrender.com/api/health
 
 > **About the live demo:** the backend runs on a free hosting tier. It sleeps when idle, so the first load may take around a minute while it wakes up, and it resets its database on restart (re-seeding sample tasks). The board shows loading placeholders while it waits.
